@@ -1,0 +1,116 @@
+.main-calendar-month {
+    width: 100%;
+}
+
+.main-calendar-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-flow: row;
+    height: calc((100vh - 6em) / 7);
+}
+
+.main-calendar-week-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-flow: row;
+}
+
+.main-calendar-day {
+    min-width: 4em;
+    min-height: 4em;
+    display: grid;
+    grid-template-rows: auto 1.5fr;
+    border: 1px solid black;
+    padding: 0.2em;
+}
+
+.main-calendar-day-header {
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: column; */
+    /* border: 1px solid black; */
+    /* padding: 0.5rem; */
+    min-height: 10%;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.day__body {
+    display: flex;
+    flex-direction: column;
+    /* max-height: 4em;
+    overflow: scroll; */
+}
+
+.day__events {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    /* border: 1px solid red; */
+}
+
+.day__events__name {
+    display: flex;
+    justify-content: left;
+    /* border: 1px solid blue; */
+}
+
+.day__events__total {
+    font-size: 2rem;
+
+}
+
+.day__events__entry {
+    display: flex; 
+    justify-content: space-between; 
+    /* border: 1px solid blue; */
+}
+
+.main-calendar-header-element {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
+
+.currentDay {
+    /* background-color: orange; */
+    color: orange;
+    font-size: 1.2em;
+    /* border-radius: 100%; */
+    /* border: 1px solid red; */
+    /* height: 1em;
+    width: 1em; */
+    /* padding: 0.5em; */
+}
+
+.weekend {
+    background-color: #dcdcdc;
+}
+
+.starting__balance {
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    /* width: 100%; */
+    border: 2px solid red;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar_event__view {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 4fr 1fr;
+}
+
+.monthlyEventSelect {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-flow: row;
+}
+
+.weeklyEventSelect {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: row;
+}
