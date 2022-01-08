@@ -41,9 +41,7 @@ export function Balance(startdate, enddate, events, currentBalance = 100) {
     };
 
     let sortedBills = sortBills();
-    // console.log("sorted", sortedBills);
     let filteredBills = filterBills(startdate, enddate, sortedBills);
-    // console.log("filtered", filteredBills);
     let calculatedBalance = calculateBalance(
         startdate,
         enddate,
@@ -57,21 +55,4 @@ export function Balance(startdate, enddate, events, currentBalance = 100) {
     //     calculatedBalance[calculatedBalance.length - 1].balance
     // );
     return calculatedBalance;
-    // return calculatedBalance.flatMap((el, index) => {
-    //     if (index < calculatedBalance.length - 2) {
-    //         if (calculatedBalance[index + 1].date === el.date) {
-    //             calculatedBalance[index + 1].balance = calculatedBalance[index + 1].balance + el.balance;
-    //             console.log(el, calculatedBalance[index + 1]);
-    //             return [];
-    //         }
-    //         return [el]
-    //     } else {
-    //         return [el];
-    //     }
-    // }).map(el => {
-    //     return {
-    //         balance: el.balance,
-    //         date: new Date(el.date),
-    //     };
-    // });
 }

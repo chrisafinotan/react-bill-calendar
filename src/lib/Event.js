@@ -137,7 +137,6 @@ export function CreateRepeatingEvent(
             let lastDayOfMonth = getLastDayOfMonth(currDate, freq);
             for (let day of days) {
                 let eventday = new Date(firstDayOfMonth.setDate(day));
-                // console.log(index, eventday, day, firstDayOfMonth);
                 let newEventObj = {
                     date: eventday,
                     name: name,
@@ -147,10 +146,8 @@ export function CreateRepeatingEvent(
                 };
                 eventsArray.push(NewEvent(newEventObj));
             }
-
-            let lastDate = new Date(lastDayOfMonth);
+            // let lastDate = new Date(lastDayOfMonth);
             currDate = new Date(lastDayOfMonth).setHours(24);
-            // console.log("curr", currDate, lastDate);
         }
 
         let monthlyRepeatEvents = {
@@ -182,4 +179,19 @@ export function CreateRepeatingEvent(
             break;
     }
     return repeatingEventList;
+}
+
+export function CreateSingleEvent(date, name, type, amount, event_class) {
+    let newEventObj = {
+        date: date,
+        name: name,
+        type: type,
+        amount: amount,
+        event_class: event_class,
+    };
+    let singleEvent = {
+        name: name,
+        event: NewEvent(newEventObj),
+    };
+    return singleEvent;
 }

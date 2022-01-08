@@ -42,7 +42,8 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
     };
 
     const handleTabChange = (event, newValue) => {
-        setTabValue(newValue);
+        if (!input)
+            setTabValue(newValue);
     };
 
     const handleSelectWeekly = (event, selectedDays) => {
@@ -95,7 +96,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                                 className='weeklyEventSelect'
                                 sx={{
                                     display: 'grid',
-                                    gridTemplateColumns: 'repeat(4, 1fr)',
+                                    gridTemplateColumns: 'repeat(7, 1fr)',
                                     gridAutoFlow: 'row',
                                 }}
                             >
@@ -215,7 +216,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                     NAME
                 </div>
                 <div>
-                    <input onChange={e => setSingleEName(e.target.value)}></input>
+                    <input disabled={input ? true : false} value={singleEName} onChange={e => setSingleEName(`${e.target.value}`)}></input>
                 </div>
             </div>
             {/* TYPE */}
@@ -249,7 +250,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         label="Date"
                         value={singleEDate}
                         onChange={(newValue) => {
-                            setSingleEDate(newValue);
+                            setSingleEDate(new Date(newValue));
                         }}
                         renderInput={(params) => <TextField {...params} />}
                     />
@@ -266,7 +267,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                     NAME
                 </div>
                 <div>
-                    <input disabled={input ? true : false} value={repeatingEName} onChange={e => setRepeatingEName(e.target.value)}></input>
+                    <input disabled={input ? true : false} value={repeatingEName} onChange={e => setRepeatingEName(`${e.target.value}`)}></input>
                 </div>
             </div>
             {/* TYPE */}
@@ -279,6 +280,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                     onChange={changeEventType}
                     autoWidth
                     label="Event Type"
+                    sx={whiteText}
                 >
                     <MenuItem value={'Credit'}>Credit</MenuItem>
                     <MenuItem value={'Debit'}>Debit</MenuItem>
@@ -302,7 +304,8 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         onChange={(newValue) => {
                             setRepeatingEDate(new Date(newValue));
                         }}
-                        renderInput={(params) => <TextField {...params} />}
+                        renderInput={(params) => <TextField sx={whiteText} {...params} />}
+                        sx={whiteText}
                     />
                 </div>
                 {/* END DATE */}
@@ -313,7 +316,8 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         onChange={(newValue) => {
                             setRepeatingEDate2(new Date(newValue));
                         }}
-                        renderInput={(params) => <TextField {...params} />}
+                        renderInput={(params) => <TextField sx={whiteText} {...params} />}
+                        sx={whiteText}
                     />
                 </div>
             </LocalizationProvider>
@@ -328,11 +332,12 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         onChange={changeRepeatType}
                         autoWidth
                         label="Repeat Type"
+                        sx={whiteText}
                     >
-                        <MenuItem value={'Daily'}>Daily</MenuItem>
-                        <MenuItem value={'Weekly'}>Weekly</MenuItem>
-                        <MenuItem value={'Monthly'}>Monthly</MenuItem>
-                        <MenuItem value={'Yearly'}>Yearly</MenuItem>
+                        <MenuItem sx={whiteText} value={'Daily'}>Daily</MenuItem>
+                        <MenuItem sx={whiteText} value={'Weekly'}>Weekly</MenuItem>
+                        <MenuItem sx={whiteText} value={'Monthly'}>Monthly</MenuItem>
+                        <MenuItem sx={whiteText} value={'Yearly'}>Yearly</MenuItem>
                     </Select>
                 </FormControl>
             </div>
@@ -346,14 +351,11 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
     const generateEvent = (type) => {
         if (type === 'single') {
             let newSingleEvent = {
-                amount: repeatingEAmount,
+                amount: Number(singleEAmount),
                 event_class: eventType,
-                date: repeatingEDate,
-                name: repeatingEName,
-                type: "recurring",
-                start: repeatingEDate,
-                end: repeatingEDate2,
-                repeatParams: [repeatType, repeatingEFreq, repeatingEWeekly, repeatingEMonthly, repeatingEYearly],
+                date: singleEDate,
+                name: singleEName,
+                type: "single",
             }
             addNewSingle(newSingleEvent)
         }
@@ -362,7 +364,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 amount: Number(repeatingEAmount),
                 event_class: eventType,
                 name: repeatingEName,
-                type: "recurring",
+                type: "repeating",
                 start: repeatingEDate,
                 end: repeatingEDate2,
                 repeatParams: [repeatType, Number(repeatingEFreq), repeatingEWeekly, repeatingEMonthly, repeatingEYearly],
@@ -378,7 +380,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
 
     useEffect(() => {
         if (input) {
-            if (input.type === 'recurring') {
+            if (input.type === 'repeating') {
                 setRepeatingEName(input.name);
                 setRepeatingEDate(new Date(input.start));
                 setRepeatingEDate2(new Date(input.end));
@@ -387,24 +389,37 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 setRepeatingEWeekly(() => input.repeatParams[2]);
                 setRepeatingEMonthly(() => input.repeatParams[3]);
                 setRepeatingEYearly(() => input.repeatParams[4]);
-                setTabValue('repeating');
                 setRepeatType(input.repeatParams[0]);
                 setEventType(input.event_class);
+                setTabValue('repeating');
+            } else {
+                setSingleEName(input.name);
+                setSingleEDate(new Date(input.date))
+                setSingleEAmount(input.amount)
+                setEventType(input.event_class);
+                setTabValue('single');
             }
         }
     }, [input])
+
+
+
     return (
-        <div>
-            <div sx={{ width: '100%' }}>
+        <div className='event__card'>
+            <div className='event__card__tabs'>
                 <Tabs
                     value={tabValue}
                     onChange={handleTabChange}
                     // textColor="secondary"
                     // indicatorColor="secondary"
-                    aria-label="secondary tabs example"
+                    aria-label="event card tabs"
+                // sx={{
+                //     // backgroundColor: 'var(--primary-bg-color)',
+                //     // border: '2px solid var(--main-bg-border-color)',
+                // }}
                 >
-                    <Tab value="single" label="Single" />
-                    <Tab value="repeating" label="Repeating" />
+                    <Tab sx={whiteText} value="single" label="Single" />
+                    <Tab sx={whiteText} value="repeating" label="Repeating" />
                 </Tabs>
             </div>
             {
@@ -421,3 +436,8 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
 }
 
 export default EventCard
+
+const whiteText = {
+    color: 'var(--main-bg-color)',
+    border: '2px solid var(--main-bg-border-color)',
+}

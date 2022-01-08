@@ -1,0 +1,58 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    /* background-color: black; */
+    /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+
+    font-family: CircularStd-Book, -apple-system, BlinkMacSystemFont, Segoe UI,
+        Roboto, Helvetica Neue, Arial, sans-serif, "Shizuru", cursive;
+
+        background-color: rgb(43, 56, 66);
+        background-color:var(--main__bg__color);
+        color: var(--main__font__color);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --main__font__color: #000000;
+    --p__font__color: #313131;
+    --s__font__color: #4A5050;
+    --w__font__color: #ffffff;
+    
+    /* --main__bg__color: #000000;
+    --p__bg__color: #050505;
+    --s__bg__color: #2020207a; */
+
+    --main__bg__color: #ffffff;
+    --p__bg__color: #d8d8d8;
+    --s__bg__color: #949393;
+    
+    --main__blue__color: #13113a;
+    --p__blue__color: #1B26E3;
+    --s__blue__color: #1167e2;
+
+    --p__red__color: #E12527;
+    --s__red__color: #ef6264;
+    
+    --p__green__color: #0A9A33;
+    --s__green__color: #0bc358;
+
+    --p__purple__color: #600a9a;
+    --s__purple__color: #600bc3;
+}
+
+button {
+    background-color:var(--secondary-bg-color);
+    color: white;
+    border-color: var(--primary-btn-border-color);
+}

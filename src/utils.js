@@ -37,7 +37,6 @@ export function month__Events(month, monthEvents) {
     return month.matrix.map((week) => {
         return week.map((day) => {
             let found = monthEvents.filter((el) => 
-                // console.log(day.toDateString(), new Date(el.date).toDateString(), new Date(el.date).toDateString() === day.toDateString())
                 new Date(el.date).toDateString() === day.toDateString()
             );
             return [day, found];

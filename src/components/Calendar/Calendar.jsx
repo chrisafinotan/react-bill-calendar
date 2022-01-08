@@ -3,10 +3,11 @@ import dayjs from 'dayjs';
 import { getMonth, month__Events } from '../../utils';
 import Month from './Month';
 import WeekHeader from './WeekHeader';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { borderColor } from '@mui/system';
 
 const Calendar = ({ events }) => {
-    // console.table(getMonth())
-
     const filterEvents = () => {
         if (!events)
             return []
@@ -14,8 +15,7 @@ const Calendar = ({ events }) => {
             if (currentMonth.firstDate <= event.date && event.date <= currentMonth.lastDate) return event;
         })
     }
-
-    const [monthCounter, setMonthCounter] = useState(0)
+    const [monthCounter, setMonthCounter] = useState(0);
     const [currentMonth, setcurrentMonth] = useState(getMonth(monthCounter));
     const [monthEvents, setmonthEvents] = useState(() => filterEvents())
     const [monthState, setmonthState] = useState(() => month__Events(currentMonth, monthEvents))
@@ -23,33 +23,50 @@ const Calendar = ({ events }) => {
     // console.log('current month', currentMonth)
     // console.log('monthEvents', monthEvents)
     // console.log('monthState', monthState)
-    // useEffect(() => {
-
-    // }, [events])
+ 
     useEffect(() => {
         setcurrentMonth(() => getMonth(monthCounter))
-        // console.log('counter', monthCounter)
     }, [monthCounter, events])
 
     useEffect(() => {
         setmonthEvents(() => filterEvents())
-        // setmonthEvents(events)
     }, [currentMonth])
 
     useEffect(() => {
         setmonthState(() => month__Events(currentMonth, monthEvents))
     }, [monthEvents])
 
+    useEffect(() => {
+        const onKeyDown = ({key}) => {
+            if (key === 'ArrowUp' || key === 'ArrowLeft'){
+                setMonthCounter(counter => counter - 1)
+            }
+            if (key === 'ArrowDown' || key === 'ArrowRight'){
+                setMonthCounter(counter => counter + 1)
+            }
+        }
+
+        document.addEventListener('keydown', onKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+        }
+    }, []);
+
     return (
-        <div>
-            <div>
-                <button onClick={() => setMonthCounter(counter => counter - 1)}>PREV</button>
-                <button onClick={() => setMonthCounter(0)}>TODAY</button>
-                <button onClick={() => setMonthCounter(counter => counter + 1)}>NEXT</button>
+        <div className='main__calendar__wrapper'>
+            <div className='main__calendar__month__header'>
+                <div className='main__calendar__month'>
+                    {dayjs().month(currentMonth.month).format('MMMM YYYY')}
+                </div>
+                <div className='main__calendar__month__header__btns'> 
+                    <button className={'main__calendar__header__btn'} onClick={() => setMonthCounter(counter => counter - 1)}><NavigateBeforeIcon sx={{ color: 'var(--main__font__color)'}} /></button>
+                    <button className={'main__calendar__header__btn'} onClick={() => setMonthCounter(0)}>TODAY</button>
+                    <button className={'main__calendar__header__btn'} onClick={() => setMonthCounter(counter => counter + 1)}><NavigateNextIcon sx={{ color: 'var(--main__font__color)'}}/></button>
+                </div>
             </div>
             <WeekHeader month={currentMonth} />
             <Month month={monthState} monthEvents={monthEvents} />
-
         </div>
     )
 }
