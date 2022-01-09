@@ -7,9 +7,15 @@ import dayjs from 'dayjs';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import Modal from '@mui/material/Modal';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
+// import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const CustomTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} placement="left" />
@@ -255,38 +261,87 @@ const EventCreator = ({ eventsArr, setEvents }) => {
     return (
         <div className='event__creator__wrapper'>
             <div className='event__creator__new__div'>
-                <div>Add New Event</div>
-                <button onClick={CreateEvent}><AddCircleIcon sx={{ color: 'var(--primary-btn-color)', fontSize: 40 }} /></button>
+                <button className='event__creator__new__btn' onClick={CreateEvent}><AddIcon sx={{ color: 'var(--p__green__color)' }} /></button>
             </div>
             <div className="event__creator__list">
-                {eventsList.map(el => {
-                    let tooltip = (
-                        <div>
-                            <div onClick={() => EditEvent(el)} style={{ borderRadius: '100%' }}>
-                                <EditIcon sx={{ color: 'var(--s__font__color)' }} />
-                            </div>
-                            <div onClick={() => DeleteEvent(el)} style={{ borderRadius: '100%' }}>
-                                <DeleteForeverIcon sx={{ color: 'var(--p__red__color)' }} />
-                            </div>
-                        </div>
-                    )
-
-                    return (
-                        <CustomTooltip title={tooltip} arrow key={`day_event_${el}`}>
-                            <div className='event__creator__object'>
-                                <div>
-                                    <div className='event__creator__event__name' style={el.event_class === 'Debit' ? { color: 'var(--p__red__color)' } : { color: 'var(--p__green__color)' }}>
-                                        {el.name}
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="debit__events__content"
+                        id="debit__events__header"
+                    >
+                        Debits
+                    </AccordionSummary>
+                    <div className='event__creator__list__debits'>
+                        <AccordionDetails sx={{ maxHeight: '20em', display: 'block', padding: 0, }}>
+                            {eventsList.filter(el => el.event_class === 'Debit').map(el => {
+                                let tooltip = (
+                                    <div>
+                                        <div onClick={() => EditEvent(el)} style={{ borderRadius: '100%' }}>
+                                            <EditIcon sx={{ color: 'var(--s__font__color)' }} />
+                                        </div>
+                                        <div onClick={() => DeleteEvent(el)} style={{ borderRadius: '100%' }}>
+                                            <DeleteForeverIcon sx={{ color: 'var(--p__red__color)' }} />
+                                        </div>
                                     </div>
-                                    <div className='event__creator__event__desc'>
-                                        {GetEventString(el)}
+                                )
+                                return (
+                                    <CustomTooltip title={tooltip} arrow key={`day_event_${el.name}_debit`}>
+                                        <div className='event__creator__object'>
+                                            <div>
+                                                <div className='event__creator__event__name' style={el.event_class === 'Debit' ? { color: 'var(--p__red__color)' } : { color: 'var(--p__green__color)' }}>
+                                                    {el.name}
+                                                </div>
+                                                <div className='event__creator__event__desc'>
+                                                    {GetEventString(el)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </CustomTooltip>
+                                )
+                            })}
+                        </AccordionDetails>
+                    </div>
+                </Accordion>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="crebit__events__content"
+                        id="crebit__events__header"
+                    >
+                        Credits
+                    </AccordionSummary>
+                    <div className='event__creator__list__credits'>
+                        <AccordionDetails sx={{ maxHeight: '20em', display: 'block', padding: 0 }}>
+                            {eventsList.filter(el => el.event_class === 'Credit').map(el => {
+                                let tooltip = (
+                                    <div>
+                                        <div onClick={() => EditEvent(el)} style={{ borderRadius: '100%' }}>
+                                            <EditIcon sx={{ color: 'var(--s__font__color)' }} />
+                                        </div>
+                                        <div onClick={() => DeleteEvent(el)} style={{ borderRadius: '100%' }}>
+                                            <DeleteForeverIcon sx={{ color: 'var(--p__red__color)' }} />
+                                        </div>
                                     </div>
-                                </div>
-
-                            </div>
-                        </CustomTooltip>
-                    )
-                })}
+                                )
+                                return (
+                                    <CustomTooltip title={tooltip} arrow key={`day_event_${el.name}_credit`}>
+                                        <div className='event__creator__object'>
+                                            <div>
+                                                <div className='event__creator__event__name' style={el.event_class === 'Debit' ? { color: 'var(--p__red__color)' } : { color: 'var(--p__green__color)' }}>
+                                                    {el.name}
+                                                </div>
+                                                <div className='event__creator__event__desc'>
+                                                    {GetEventString(el)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </CustomTooltip>
+                                )
+                            })}
+                        </AccordionDetails>
+                    </div>
+                </Accordion>
             </div>
 
             <div>

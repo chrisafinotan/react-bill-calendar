@@ -5,7 +5,6 @@ import Month from './Month';
 import WeekHeader from './WeekHeader';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import { borderColor } from '@mui/system';
 
 const Calendar = ({ events }) => {
     const filterEvents = () => {

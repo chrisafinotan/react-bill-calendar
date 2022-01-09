@@ -252,7 +252,23 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         onChange={(newValue) => {
                             setSingleEDate(new Date(newValue));
                         }}
-                        renderInput={(params) => <TextField {...params} />}
+                        renderInput={(params) => <TextField
+                            sx={{
+                                border: "1px solid var(--w__font__color)",
+                                borderRadius:
+                                    "0.5em",
+                                "& div": {
+                                    color: "var(--w__font__color)",
+                                },
+                                "& label": {
+                                    color: "var(--w__font__color)",
+                                    display: 'none',
+                                },
+                                "& svg": {
+                                    color: "var(--w__font__color)",
+                                },
+                            }}
+                            {...params} />}
                     />
                 </div>
             </LocalizationProvider>
@@ -304,7 +320,23 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         onChange={(newValue) => {
                             setRepeatingEDate(new Date(newValue));
                         }}
-                        renderInput={(params) => <TextField sx={whiteText} {...params} />}
+                        renderInput={(params) => <TextField
+                            sx={{
+                                border: "1px solid var(--w__font__color)",
+                                borderRadius:
+                                    "0.5em",
+                                "& div": {
+                                    color: "var(--w__font__color)",
+                                },
+                                "& label": {
+                                    color: "var(--w__font__color)",
+                                    display: 'none',
+                                },
+                                "& svg": {
+                                    color: "var(--w__font__color)",
+                                },
+                            }}
+                            {...params} />}
                         sx={whiteText}
                     />
                 </div>
@@ -316,7 +348,23 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         onChange={(newValue) => {
                             setRepeatingEDate2(new Date(newValue));
                         }}
-                        renderInput={(params) => <TextField sx={whiteText} {...params} />}
+                        renderInput={(params) => <TextField
+                            sx={{
+                                border: "1px solid var(--w__font__color)",
+                                borderRadius:
+                                    "0.5em",
+                                "& div": {
+                                    color: "var(--w__font__color)",
+                                },
+                                "& label": {
+                                    color: "var(--w__font__color)",
+                                    display: 'none',
+                                },
+                                "& svg": {
+                                    color: "var(--w__font__color)",
+                                },
+                            }}
+                            {...params} />}
                         sx={whiteText}
                     />
                 </div>

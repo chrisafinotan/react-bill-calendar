@@ -28,7 +28,7 @@ const Day = ({ day }) => {
             return day[1].map(el => {
                 let tooltip = (
                     <div className='day__events__entry'>
-                        <div className='day__events__amount' style={el.event.class === 'Debit' ? { color: 'red' } : { color: 'green' }}>
+                        <div className='day__events__amount' style={el.event.class === 'Debit' ? { color: 'var(--s__red__color)' } : { color: 'var(--s__green__color)' }}>
                             {`Amount: ${el.event.amount}`}
                         </div>
                         <div className='day__events__balance'>
@@ -39,7 +39,7 @@ const Day = ({ day }) => {
 
                 return (
                     <CustomTooltip title={tooltip} arrow key={`day_event_${el.event.name}`}>
-                        <div className='day__events' style={el.event.class === 'Debit' ? { backgroundColor: 'red' } : { backgroundColor: 'green' }}
+                        <div className='day__events' style={el.event.class === 'Debit' ? { backgroundColor: 'var(--s__red__color)' } : { backgroundColor: 'var(--s__green__color)' }}
                         >
                             <div className='day__events__name'>
                                 {`${el.event.name}`}
@@ -55,7 +55,7 @@ const Day = ({ day }) => {
         if (day[1]) {
             if (day[1].at(-1))
                 return (
-                    <div className='day__events__total' style={day[1].at(-1).balance < 0 ? { color: 'var(--p__red__color)' } : { color: 'var(--s__green__color)' }}>
+                    <div className='day__events__total' style={day[1].at(-1).balance < 0 ? { color: 'var(--p__red__color)' } : { color: 'var(--p__green__color)' }}>
                         {day[1].at(-1).balance}
                     </div>
                 )

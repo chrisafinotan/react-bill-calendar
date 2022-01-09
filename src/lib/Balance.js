@@ -49,10 +49,5 @@ export function Balance(startdate, enddate, events, currentBalance = 100) {
         currentBalance
     );
 
-    // console.log("balance", calculatedBalance);
-    // console.log(
-    //     "balance",
-    //     calculatedBalance[calculatedBalance.length - 1].balance
-    // );
     return calculatedBalance;
 }
