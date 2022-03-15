@@ -17,16 +17,11 @@ export function Balance(startdate, enddate, events, currentBalance = 100) {
     };
 
     //filter events by date
-    const filterBills = (start, end, events) => {
-        return events.filter((event) => {
-            if (start <= event.date && event.date <= end) return event;
-        });
-    };
-
     const filterBills2 = (start, end, events) => {
         return events.filter((event) => {
             let ans = dayjs(event.date).isBetween(dayjs(start), dayjs(end));
             if (ans) return event;
+            return null;
         });
     };
 

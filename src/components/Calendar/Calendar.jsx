@@ -46,15 +46,14 @@ const Calendar = ({ events }) => {
     }, [monthEvents])
 
     useEffect(() => {
-
         // if (calRef && calRef.current) {
-        //     console.log('adding listener');
-        //     window.addEventListener('keydown', onKeyDown);
+        // console.log('adding listener');
+        window.addEventListener('keydown', onKeyDown);
         // }
 
-        // return () => {
-        //     window.removeEventListener('keydown', onKeyDown);
-        // }
+        return () => {
+            window.removeEventListener('keydown', onKeyDown);
+        }
     }, [])
 
 

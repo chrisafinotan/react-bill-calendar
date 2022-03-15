@@ -169,7 +169,6 @@ function App() {
                                         setStartBalance(Number(e.target.value))
                                     }
                                     className="input__big"
-                                    onInput="this.parentNode.dataset.value = this.value"
                                 ></input>
                             </div>
                             <div
