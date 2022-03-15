@@ -140,7 +140,7 @@
 .starting__balance {
     display: flex;
     /* flex-direction: column; */
-    font-weight: 300;
+    /* font-weight: 700; */
     align-items: center;
 }
 
@@ -148,9 +148,16 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    font-size: 2em;
+    font-size: 1em;
     align-items: center;
     padding: 1em 0;
+    gap: 0.5em;
+}
+
+.balance__span__title {
+    overflow-x: scroll;
+    white-space: nowrap;
+    /* min-width: 10rem; */
 }
 
 .balance__date__div {
@@ -158,6 +165,7 @@
     /* width: 60%; */
     justify-content: space-between;
     align-items: center;
+    white-space: nowrap;
 }
 
 .title__wrapper {
@@ -165,20 +173,27 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    color: var(--main__font__color);
+    font-weight: 700;
 }
 
 .title__div {
-    font-size: 3em;
+    font-size: 2em;
 }
 
 .input__big {
-    font-size: 1em;
-    min-width: 5em;
-    width: 5em;
-    max-width: 9em;
-    color: var(--w__font__color);
+    font-size: 2rem;
+    /* min-width: 3em; */
+    width: 100%;
+    max-width: 15rem;
+    color: var(--main__font__color);
     background-color: var(--credit-font-color);
     border: none;
+    border-bottom: 2px solid var(--main__font__color);
+    /* flex-grow: 1; */
+    height: 100%;
+    text-align: center;
+    
 }
 
 .input__big::-webkit-outer-spin-button,
@@ -200,13 +215,103 @@
 }
 
 .event__card {
-    color: var(--main-bg-color);
+    color: var(--main__bg__color);
+    border: 2px solid var(--t__font__color);
+    background-color: var(--t__font__color);
+    padding: 1rem;
+    border-radius: 1em;
+    /* width: fit-content; */
+    overflow: scroll;
+    /* display: flex; */
+    /* align-self: center; */
+}
+
+.event__card__form {
+    min-width: 50vw;
+    background-color: var(--t__font__color);
+    padding: 1rem;
+    border-radius: 1em;
+    min-height: 50vh;
+    max-height: 80vh;
+    top: 0;
+    /* height: 100%; */
+    overflow: scroll;
+    /* width: fit-content; */
+    transition: all 0.6s ease-in-out;
+}
+
+.event__card__display__flex {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    /* justify-content: space-between; */
+    gap: 1em;
+    align-items: center;
+    margin: 1rem 0;
+}
+.event__card__display__flex div {
+    font-weight: 700;
+}
+
+.event__card__input {
+    position: relative;
+}
+.event__card__input input {
+    font-size: 1.5rem;
+    /* border-radius: 0.5rem; */
+    padding: 0.25rem;
+    border: 0;
+    width: 100%;
+    font-size: 1.5rem;
+    background-color: var(--t__font__color);
+    border-bottom: 2px solid var(--w__font__color);
+    background-color: transparent;
+    color: var(--w__font__color);
+    /* border-radius: 4px; */
+}
+
+.event__card__btns {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    align-content: center;
+}
+
+.event__card__btns button {
+    color: var(--main__bg__color);
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 1em;
+}
+
+.event__card__btns .ok {
+    background-color: var(--p__green__color);
+}
+
+.event__card__btns .not {
+    background-color: var(--s__bg__color);
+    opacity: 0.5;
+}
+
+.event__card__btns .cancel {
+    background-color: var(--p__red__color);
 }
 
 .event__card__tabs {
     display: flex;
     justify-content: center;
+    gap: 1em;
     align-content: center;
+}
+
+.event__card__tabs div {
+    font-size: 2rem;
+    font-weight: 700;
+    transition: all 0.6s ease-out;
+}
+
+.event__card__tabs .active {
+    color: var(--p__green__color);
+    text-decoration: underline;
 }
 
 .modal__div {
@@ -214,7 +319,6 @@
     top: 2em;
     left: 50%;
     transform: translate(-50%, 0%);
-    width: 400px;
     background-color: var(--primary-text-color);
     border-radius: 1em;
     box-shadow: 24;
@@ -291,8 +395,7 @@
 
 .event__creator__new__btn {
     width: 4em;
-    height:4em;
+    height: 4em;
     border-radius: 100%;
     border: 4px solid var(--p__green__color);
-
 }

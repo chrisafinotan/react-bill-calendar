@@ -1,5 +1,6 @@
 import Day from './Day'
 const Month = ({ month }) => {
+    // console.log('month', month)
     return (
         <div className='main__calendar__month__wrapper'>
             {month.map((row, week_index) => {

@@ -106,7 +106,7 @@ const EventCreator = ({ eventsArr, setEvents }) => {
     const AddRepeatEvent = (newRepeatEvent) => {
         if (CheckEvents(newRepeatEvent)) {
             let newRepeat = CreateRepeatingEvent(newRepeatEvent.start, newRepeatEvent.end, newRepeatEvent.name, newRepeatEvent.type, newRepeatEvent.amount, newRepeatEvent.event_class, newRepeatEvent.repeatParams)
-            console.log('newrepeating events', newRepeat)
+            // console.log('newrepeating events', newRepeat)
             let prevArray = eventsArr;
             let newArray = prevArray.concat(newRepeat.events)
             setEvents(newArray);
@@ -116,7 +116,7 @@ const EventCreator = ({ eventsArr, setEvents }) => {
     const AddSingleEvent = (newSingleEvent) => {
         if (CheckEvents(newSingleEvent)) {
             let newSingle = CreateSingleEvent(newSingleEvent.date, newSingleEvent.name, newSingleEvent.type, newSingleEvent.amount, newSingleEvent.event_class);
-            console.log('new single event', newSingle)
+            // console.log('new single event', newSingle)
             let prevArray = eventsArr;
             let newArray = prevArray.concat(newSingle.event)
             setEvents(newArray);

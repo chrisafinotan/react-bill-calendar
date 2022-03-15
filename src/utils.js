@@ -14,12 +14,16 @@ export function getMonth(month = dayjs().month()) {
     const daysMatrix = new Array(CAL_NUM_ROWS).fill([]).map(() => {
         return new Array(CAL_NUM_DAYS).fill(null).map(() => {
             currentDayCounter++;
-            return new Date(year, month, currentDayCounter);
+            let day = new Date(year, month, currentDayCounter);
+            return dayjs(day);
+            // .set("year", year)
+            // .set("month", month)
+            // .set("day", currentDayCounter);
         });
     });
 
     let firstDate = daysMatrix[0][0];
-    let lastDate = daysMatrix[CAL_NUM_ROWS-1][CAL_NUM_DAYS-1];
+    let lastDate = daysMatrix[CAL_NUM_ROWS - 1][CAL_NUM_DAYS - 1];
     // console.log(firstDate, lastDate)
 
     return {
@@ -27,8 +31,8 @@ export function getMonth(month = dayjs().month()) {
         year: year,
         firstDate: firstDate,
         lastDate: lastDate,
-        startDate: new Date(year, month, 1),
-        endDate: new Date(year, month + 1, 0),
+        startDate: dayjs(new Date(year, month, 1)),
+        endDate: dayjs(new Date(year, month + 1, 0)),
         matrix: daysMatrix,
     };
 }
@@ -36,8 +40,12 @@ export function getMonth(month = dayjs().month()) {
 export function month__Events(month, monthEvents) {
     return month.matrix.map((week) => {
         return week.map((day) => {
-            let found = monthEvents.filter((el) => 
-                new Date(el.date).toDateString() === day.toDateString()
+            let found = monthEvents.filter(
+                (el) => {
+                    let ans = dayjs(el.date).isSame(dayjs(day), 'day');
+                    return ans
+                    // new Date(el.date).toDateString() === day.toDateString()
+                }
             );
             return [day, found];
         });

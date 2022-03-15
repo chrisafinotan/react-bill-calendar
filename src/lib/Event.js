@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+var weekday = require("dayjs/plugin/weekday");
+dayjs.extend(weekday);
 
 export function NewEvent({ date, name, type, amount, event_class }) {
     return {
@@ -22,17 +24,28 @@ export function CreateRepeatingEvent(
     let [repeatType, repeatFrequency, repeatDays, repeatWeek, repeatMonth] =
         repeatParams;
     let repeatingEventList;
+    // console.log(
+    //     `event, start date day: ${dayjs(startDate).day()}, month: ${dayjs(
+    //         startDate
+    //     ).month()}, year: ${dayjs(startDate).year()}`
+    // );
 
     let [start__Day, start__Month, start__Year] = [
-        startDate.getDate(),
-        startDate.getMonth(),
-        startDate.getFullYear(),
+        dayjs(startDate).day(),
+        dayjs(startDate).month(),
+        dayjs(startDate).year(),
+        // startDate.getDate(),
+        // startDate.getMonth(),
+        // startDate.getFullYear(),
     ];
     if (!endDate) endDate = new Date(start__Year + 1, start__Month, start__Day);
     let [end__Day, end__Month, end__Year] = [
-        endDate.getDate(),
-        endDate.getMonth(),
-        endDate.getFullYear(),
+        dayjs(endDate).day(),
+        dayjs(endDate).month(),
+        dayjs(endDate).year(),
+        // endDate.getDate(),
+        // endDate.getMonth(),
+        // endDate.getFullYear(),
     ];
 
     const DailyRepeat = (freq) => {
@@ -43,7 +56,7 @@ export function CreateRepeatingEvent(
 
         while (currDate <= endDate) {
             let newEventObj = {
-                date: currDate,
+                date: dayjs(currDate),
                 name: name,
                 type: type,
                 amount: amount,
@@ -59,14 +72,19 @@ export function CreateRepeatingEvent(
             name: `${name}_repeating_day`,
             events: eventsArray,
         };
+        // console.log("daily repeating event", dailyRepeatEvents);
         return dailyRepeatEvents;
     };
 
     const getFirstDayOfWeek = (d) => {
         const date = new Date(d);
-        const day = date.getDay();
-        const diff = date.getDate() - day;
-        return new Date(date.setDate(diff));
+        let first = dayjs(date)
+            .weekday(0)
+            .set("hour", 0)
+            .set("minute", 0)
+            .set("second", 0)
+            .set("millisecond", 0);
+        return first;
     };
 
     const getFirstDayOfMonth = (d) => {
@@ -88,7 +106,7 @@ export function CreateRepeatingEvent(
         //event occurs every 'freq' week(s) on days specified in 'days'
         let currDate = startDate;
         let eventsArray = [];
-        let currDay = start__Day;
+        let nextdate;
 
         if (!days) {
             days = [currDate.getDay()];
@@ -96,10 +114,12 @@ export function CreateRepeatingEvent(
 
         while (currDate <= endDate) {
             let firstDayOfWeek = getFirstDayOfWeek(currDate);
+            nextdate = firstDayOfWeek.day();
             for (let day of days) {
-                let eventday = new Date(
-                    currDate.setDate(firstDayOfWeek.getDate() + day)
+                let eventday = dayjs(firstDayOfWeek).day(
+                    firstDayOfWeek.day() + day
                 );
+
                 let newEventObj = {
                     date: eventday,
                     name: name,
@@ -110,14 +130,15 @@ export function CreateRepeatingEvent(
                 eventsArray.push(NewEvent(newEventObj));
             }
 
-            currDay += freq * 7;
-            currDate = new Date(start__Year, start__Month, currDay);
+            nextdate += freq * 7;
+            currDate = dayjs(firstDayOfWeek).day(nextdate);
         }
 
         let weeklyRepeatEvents = {
             name: `${name}_repeating_week`,
             events: eventsArray,
         };
+        // console.log("weekly repeating event", weeklyRepeatEvents);
         return weeklyRepeatEvents;
     };
 
@@ -138,7 +159,7 @@ export function CreateRepeatingEvent(
             for (let day of days) {
                 let eventday = new Date(firstDayOfMonth.setDate(day));
                 let newEventObj = {
-                    date: eventday,
+                    date: dayjs(eventday),
                     name: name,
                     type: type,
                     amount: amount,
@@ -154,6 +175,7 @@ export function CreateRepeatingEvent(
             name: `${name}_repeating_month`,
             events: eventsArray,
         };
+        // console.log("monthly repeating event", monthlyRepeatEvents);
         return monthlyRepeatEvents;
     };
 
@@ -183,7 +205,7 @@ export function CreateRepeatingEvent(
 
 export function CreateSingleEvent(date, name, type, amount, event_class) {
     let newEventObj = {
-        date: date,
+        date: dayjs(date),
         name: name,
         type: type,
         amount: amount,

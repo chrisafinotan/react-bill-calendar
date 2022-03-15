@@ -66,9 +66,9 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 returnDiv = (
                     <div>
                         <div>
-                            Frequency
+                            Daily
                         </div>
-                        <div>
+                        <div className='event__card__input'>
                             <input value={repeatingEFreq} type='number' onChange={e => setRepeatingEFreq(e.target.value)}></input>
                         </div>
                     </div>
@@ -79,9 +79,9 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                     <div>
                         <div>
                             <div>
-                                Frequency
+                                Weekly
                             </div>
-                            <div>
+                            <div className='event__card__input'>
                                 <input value={repeatingEFreq} type='number' onChange={e => setRepeatingEFreq(e.target.value)}></input>
                             </div>
                         </div>
@@ -98,6 +98,16 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(7, 1fr)',
                                     gridAutoFlow: 'row',
+                                    "& button": {
+                                        backgroundColor: "var(--main__green__color)",
+                                        color: "var(--w__font__color)",
+                                        border: "0px solid var(--w__font__color) ",
+                                        borderRadius: "2rem",
+                                    },
+                                    "& .Mui-selected": {
+                                        backgroundColor: "var(--p__green__color)",
+                                        color: "var(--w__font__color)",
+                                    }
                                 }}
                             >
                                 <ToggleButton value={0} aria-label="SUN_BTN">
@@ -131,9 +141,9 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                     <div>
                         <div>
                             <div>
-                                Frequency
+                                Monthly
                             </div>
-                            <div>
+                            <div className='event__card__input'>
                                 <input value={repeatingEFreq} type='number' onChange={e => setRepeatingEFreq(e.target.value)}></input>
                             </div>
                         </div>
@@ -149,6 +159,16 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(7, 1fr)',
                                     gridAutoFlow: 'row',
+                                    "& button": {
+                                        backgroundColor: "var(--main__green__color)",
+                                        color: "var(--w__font__color)",
+                                        border: "0px solid var(--w__font__color) ",
+                                        borderRadius: "2rem",
+                                    },
+                                    "& .Mui-selected": {
+                                        backgroundColor: "var(--p__green__color)",
+                                        color: "var(--w__font__color)",
+                                    }
                                 }}
                             >
                                 {monthDays.map(el => {
@@ -167,9 +187,9 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 returnDiv = (
                     <div>
                         <div>
-                            Frequency
+                            {/* Frequency */}
                         </div>
-                        <div>
+                        <div className='event__card__input'>
                             <input value={repeatingEFreq} type='number' onChange={e => setRepeatingEFreq(e.target.value)}></input>
                         </div>
                     </div>
@@ -209,89 +229,20 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
     }
 
     let singleForm = (
-        <div>
+        <div className='event__card__form'>
             {/* NAME */}
-            <div>
+            <div className='event__card__display__flex' >
                 <div>
                     NAME
                 </div>
-                <div>
+                <div className='event__card__input'>
                     <input disabled={input ? true : false} value={singleEName} onChange={e => setSingleEName(`${e.target.value}`)}></input>
                 </div>
             </div>
             {/* TYPE */}
-            <div>
-                <div>Event Type</div>
+            <div className='event__card__display__flex'>
+                <div>TYPE</div>
                 <Select
-                    // labelId="demo-simple-select-autowidth-label"
-                    // id="demo-simple-select-autowidth"
-                    value={eventType}
-                    onChange={changeEventType}
-                    autoWidth
-                    label="Event Type"
-                >
-                    <MenuItem value={'Credit'}>Credit</MenuItem>
-                    <MenuItem value={'Debit'}>Debit</MenuItem>
-                </Select>
-            </div>
-            {/* AMOUNT */}
-            <div>
-                <div>
-                    AMOUNT
-                </div>
-                <div>
-                    <input value={singleEAmount} type='number' onChange={e => setSingleEAmount(e.target.value)}></input>
-                </div>
-            </div>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                {/* DATE */}
-                <div>
-                    <DatePicker
-                        label="Date"
-                        value={singleEDate}
-                        onChange={(newValue) => {
-                            setSingleEDate(new Date(newValue));
-                        }}
-                        renderInput={(params) => <TextField
-                            sx={{
-                                border: "1px solid var(--w__font__color)",
-                                borderRadius:
-                                    "0.5em",
-                                "& div": {
-                                    color: "var(--w__font__color)",
-                                },
-                                "& label": {
-                                    color: "var(--w__font__color)",
-                                    display: 'none',
-                                },
-                                "& svg": {
-                                    color: "var(--w__font__color)",
-                                },
-                            }}
-                            {...params} />}
-                    />
-                </div>
-            </LocalizationProvider>
-        </div>
-    )
-
-    let repeatingForm = (
-        <div>
-            {/* NAME */}
-            <div>
-                <div>
-                    NAME
-                </div>
-                <div>
-                    <input disabled={input ? true : false} value={repeatingEName} onChange={e => setRepeatingEName(`${e.target.value}`)}></input>
-                </div>
-            </div>
-            {/* TYPE */}
-            <div>
-                <div>Event Type</div>
-                <Select
-                    // labelId="demo-simple-select-autowidth-label"
-                    // id="demo-simple-select-autowidth"
                     value={eventType}
                     onChange={changeEventType}
                     autoWidth
@@ -303,17 +254,92 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 </Select>
             </div>
             {/* AMOUNT */}
-            <div>
+            <div className='event__card__display__flex'>
                 <div>
                     AMOUNT
                 </div>
+                <div className='event__card__input'>
+                    <input value={singleEAmount} type='number' onChange={e => setSingleEAmount(e.target.value)}></input>
+                </div>
+            </div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                {/* DATE */}
+                <div className='event__card__display__flex'>
+                    <div>START DATE</div>
+                    <DatePicker
+                        label="Date"
+                        value={singleEDate}
+                        onChange={(newValue) => {
+                            setSingleEDate(new Date(newValue));
+                        }}
+                        renderInput={(params) => <TextField
+                            sx={{
+                                border: "2px solid var(--w__font__color)",
+                                borderRadius: "2rem",
+                                "& div": {
+                                    color: "var(--w__font__color)",
+                                    border: "0px solid var(--w__font__color) ",
+                                    borderRadius: "2rem",
+                                },
+                                "& label": {
+                                    color: "var(--w__font__color)",
+                                    display: 'none',
+                                },
+                                "& svg": {
+                                    color: "var(--w__font__color)",
+                                },
+                                "& input": {
+                                    color: "var(--w__font__color)",
+                                    border: "0px solid var(--w__font__color) ",
+                                    borderRadius: "2rem",
+                                },
+                            }}
+                            {...params} />}
+                    />
+                </div>
+            </LocalizationProvider>
+        </div>
+    )
+
+    let repeatingForm = (
+        <div className='event__card__form'>
+            {/* NAME */}
+            <div className='event__card__display__flex'>
                 <div>
+                    NAME
+                </div>
+                <div className='event__card__input'>
+                    <input disabled={input ? true : false} value={repeatingEName} onChange={e => setRepeatingEName(`${e.target.value}`)}></input>
+                </div>
+            </div>
+            {/* TYPE */}
+            <div className='event__card__display__flex'>
+                <div>TYPE</div>
+                <Select
+                    value={eventType}
+                    onChange={changeEventType}
+                    autoWidth
+                    label="Event Type"
+                    sx={whiteText}
+                >
+                    <MenuItem value={'Credit'}>Credit</MenuItem>
+                    <MenuItem value={'Debit'}>Debit</MenuItem>
+                </Select>
+            </div>
+            {/* AMOUNT */}
+            <div className='event__card__display__flex'>
+                <div>
+                    AMOUNT
+                </div>
+                <div className='event__card__input'>
                     <input value={repeatingEAmount} type='number' onChange={e => setRepeatingEAmount(e.target.value)}></input>
                 </div>
             </div>
             {/* START DATE */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div>
+                <div className='event__card__display__flex'>
+                    <div>START DATE</div>
+
                     <DatePicker
                         label="Start Date"
                         value={repeatingEDate}
@@ -322,11 +348,12 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         }}
                         renderInput={(params) => <TextField
                             sx={{
-                                border: "1px solid var(--w__font__color)",
-                                borderRadius:
-                                    "0.5em",
+                                border: "2px solid var(--w__font__color)",
+                                borderRadius: "2rem",
                                 "& div": {
                                     color: "var(--w__font__color)",
+                                    border: "0px solid var(--w__font__color) ",
+                                    borderRadius: "2rem",
                                 },
                                 "& label": {
                                     color: "var(--w__font__color)",
@@ -335,13 +362,20 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                                 "& svg": {
                                     color: "var(--w__font__color)",
                                 },
+                                "& input": {
+                                    color: "var(--w__font__color)",
+                                    border: "0px solid var(--w__font__color) ",
+                                    borderRadius: "2rem",
+                                },
                             }}
                             {...params} />}
                         sx={whiteText}
                     />
                 </div>
                 {/* END DATE */}
-                <div>
+                <div className='event__card__display__flex'>
+                    <div>END DATE</div>
+
                     <DatePicker
                         label="End Date"
                         value={repeatingEDate2}
@@ -350,11 +384,12 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                         }}
                         renderInput={(params) => <TextField
                             sx={{
-                                border: "1px solid var(--w__font__color)",
-                                borderRadius:
-                                    "0.5em",
+                                border: "2px solid var(--w__font__color)",
+                                borderRadius: "2rem",
                                 "& div": {
                                     color: "var(--w__font__color)",
+                                    border: "0px solid var(--w__font__color) ",
+                                    borderRadius: "2rem",
                                 },
                                 "& label": {
                                     color: "var(--w__font__color)",
@@ -363,6 +398,11 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                                 "& svg": {
                                     color: "var(--w__font__color)",
                                 },
+                                "& input": {
+                                    color: "var(--w__font__color)",
+                                    border: "0px solid var(--w__font__color) ",
+                                    borderRadius: "2rem",
+                                },
                             }}
                             {...params} />}
                         sx={whiteText}
@@ -370,27 +410,29 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 </div>
             </LocalizationProvider>
             {/* REPEAT TYPE */}
-            <div>
-                <FormControl sx={{ m: 1, minWidth: 80, width: 100 }}>
-                    <div id="demo-simple-select-autowidth-div">Repeat Type</div>
-                    <Select
-                        labelId="demo-simple-select-autowidth-label"
-                        id="demo-simple-select-autowidth"
-                        value={repeatType}
-                        onChange={changeRepeatType}
-                        autoWidth
-                        label="Repeat Type"
-                        sx={whiteText}
-                    >
-                        <MenuItem sx={whiteText} value={'Daily'}>Daily</MenuItem>
-                        <MenuItem sx={whiteText} value={'Weekly'}>Weekly</MenuItem>
-                        <MenuItem sx={whiteText} value={'Monthly'}>Monthly</MenuItem>
-                        <MenuItem sx={whiteText} value={'Yearly'}>Yearly</MenuItem>
-                    </Select>
-                </FormControl>
+            <div className='event__card__display__flex'>
+                <div>REPEAT</div>
+
+                {/* <div id="demo-simple-select-autowidth-div">Repeat Type</div> */}
+                <Select
+                    // labelId="demo-simple-select-autowidth-label"
+                    // id="demo-simple-select-autowidth"
+                    value={repeatType}
+                    onChange={changeRepeatType}
+                    autoWidth
+                    // label="Repeat Type"
+                    sx={whiteText}
+                >
+                    <MenuItem sx={whiteText} value={'Daily'}>Daily</MenuItem>
+                    <MenuItem sx={whiteText} value={'Weekly'}>Weekly</MenuItem>
+                    <MenuItem sx={whiteText} value={'Monthly'}>Monthly</MenuItem>
+                    <MenuItem sx={whiteText} value={'Yearly'}>Yearly</MenuItem>
+                </Select>
             </div>
             {/* FREQUENCY */}
-            <div>
+            <div className='event__card__display__flex'>
+                <div>FREQUENCY</div>
+
                 {getRepeatTypeInput()}
             </div>
         </div>
@@ -455,29 +497,17 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
     return (
         <div className='event__card'>
             <div className='event__card__tabs'>
-                <Tabs
-                    value={tabValue}
-                    onChange={handleTabChange}
-                    // textColor="secondary"
-                    // indicatorColor="secondary"
-                    aria-label="event card tabs"
-                // sx={{
-                //     // backgroundColor: 'var(--primary-bg-color)',
-                //     // border: '2px solid var(--main-bg-border-color)',
-                // }}
-                >
-                    <Tab sx={whiteText} value="single" label="Single" />
-                    <Tab sx={whiteText} value="repeating" label="Repeating" />
-                </Tabs>
+                <div className={tabValue === 'single' ? 'active' : ""} onClick={() => setTabValue('single')}  >SINGLE</div>
+                <div className={tabValue === 'repeating' ? 'active' : ""} onClick={() => setTabValue('repeating')} >REPEATING</div>
             </div>
             {
                 tabValue === 'single' ?
                     singleForm : repeatingForm
             }
 
-            <div>
-                <button onClick={() => showCard(false)}>CANCEL</button>
-                <button disabled={!ready} onClick={() => generateEvent(tabValue)}>OK</button>
+            <div className='event__card__btns'>
+                <button className='cancel' onClick={() => showCard(false)}>CANCEL</button>
+                <button className={`ok ${ready ? "" : "not"}`} disabled={!ready} onClick={() => generateEvent(tabValue)}>OK</button>
             </div>
         </div>
     )
@@ -487,5 +517,6 @@ export default EventCard
 
 const whiteText = {
     color: 'var(--main-bg-color)',
-    border: '2px solid var(--main-bg-border-color)',
+    border: '2px solid var(--w__font__color) !important',
+    borderRadius: '2rem',
 }

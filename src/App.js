@@ -42,7 +42,10 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
-    backgroundColor: "var(--p__font__color)",
+    // opacity: "0",
+    // backgroundColor: "var(--w__font__color)",
+    boxShadow: "none",
+    backgroundColor: "transparent",
     transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -79,16 +82,15 @@ function App() {
     };
 
     const [startBalance, setStartBalance] = useState(() => getStarting());
-    const [startBalanceDateStart, setStartBalanceDateStart] = useState(
-        new Date()
-    );
-    console.log(startBalanceDateStart);
+    const [startBalanceDateStart, setStartBalanceDateStart] = useState(dayjs());
     const [startBalanceDateEnd, setStartBalanceDateEnd] = useState(
-        new Date().setFullYear(startBalanceDateStart.getFullYear() + 1)
+        dayjs().year(dayjs().year() + 1)
     );
+
     const [balance, setBalance] = useState(0);
     // const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+
+    const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -96,14 +98,6 @@ function App() {
 
     const handleDrawerClose = () => {
         setOpen(false);
-    };
-
-    const getStartDate = () => {
-        return dayjs(startBalanceDateStart).format("YYYY-MM-DD");
-    };
-
-    const getEndDate = () => {
-        return dayjs(startBalanceDateEnd).format("YYYY-MM-DD");
     };
 
     const setStartDate = (val) => {
@@ -140,7 +134,7 @@ function App() {
                         >
                             <ChevronLeftIcon
                                 sx={{
-                                    color: "var(--w__font__color)",
+                                    color: "var(--main__font__color)",
                                     fontSize: "2em",
                                 }}
                             />
@@ -155,7 +149,7 @@ function App() {
                         >
                             <MenuIcon
                                 sx={{
-                                    color: "var(--w__font__color)",
+                                    color: "var(--main__font__color)",
                                     fontSize: "2em",
                                 }}
                             />
@@ -166,15 +160,16 @@ function App() {
                         <div className="starting__balance">
                             <div className="balance__span__div">
                                 <span className="balance__span__title">
-                                    Starting Balance: $
+                                    Current: $
                                 </span>
                                 <input
-                                    type={"number"}
+                                    type='number'
                                     value={Number(startBalance)}
                                     onChange={(e) =>
                                         setStartBalance(Number(e.target.value))
                                     }
                                     className="input__big"
+                                    onInput="this.parentNode.dataset.value = this.value"
                                 ></input>
                             </div>
                             <div
@@ -197,23 +192,24 @@ function App() {
                                                         new Date(newValue)
                                                     );
                                                 }}
+                                                autoWidth
                                                 renderInput={(params) => (
                                                     <TextField
-                                                    sx={{
-                                                        border: "1px solid var(--w__font__color)",
-                                                        borderRadius:
-                                                            "0.5em",
-                                                        "& div": {
-                                                            color: "var(--w__font__color)",
-                                                        },
-                                                        "& label": {
-                                                            color: "var(--w__font__color)",
-                                                            display: 'none',
-                                                        },
-                                                        "& svg": {
-                                                            color: "var(--w__font__color)",
-                                                        },
-                                                    }}
+                                                        sx={{
+                                                            border: "1px solid var(--main__font__color)",
+                                                            borderRadius:
+                                                                "0.5em",
+                                                            "& div": {
+                                                                color: "var(--main__font__color)",
+                                                            },
+                                                            "& label": {
+                                                                color: "var(--main__font__color)",
+                                                                display: "none",
+                                                            },
+                                                            "& svg": {
+                                                                color: "var(--main__font__color)",
+                                                            },
+                                                        }}
                                                         {...params}
                                                     />
                                                 )}
@@ -240,18 +236,18 @@ function App() {
                                                 renderInput={(params) => (
                                                     <TextField
                                                         sx={{
-                                                            border: "1px solid var(--w__font__color)",
+                                                            border: "1px solid var(--main__font__color)",
                                                             borderRadius:
                                                                 "0.5em",
                                                             "& div": {
-                                                                color: "var(--w__font__color)",
+                                                                color: "var(--main__font__color)",
                                                             },
                                                             "& label": {
-                                                                color: "var(--w__font__color)",
-                                                                display: 'none',
+                                                                color: "var(--main__font__color)",
+                                                                display: "none",
                                                             },
                                                             "& svg": {
-                                                                color: "var(--w__font__color)",
+                                                                color: "var(--main__font__color)",
                                                             },
                                                         }}
                                                         {...params}

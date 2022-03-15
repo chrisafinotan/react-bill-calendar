@@ -1,7 +1,6 @@
+import dayjs from "dayjs";
 export function Balance(startdate, enddate, events, currentBalance = 100) {
-    //get current balance
     if (!events) return null;
-    startdate = new Date(startdate.setHours(-24));
     //sort events by date
     const sortBills = () => {
         let sortVal = "date";
@@ -24,9 +23,16 @@ export function Balance(startdate, enddate, events, currentBalance = 100) {
         });
     };
 
+    const filterBills2 = (start, end, events) => {
+        return events.filter((event) => {
+            let ans = dayjs(event.date).isBetween(dayjs(start), dayjs(end));
+            if (ans) return event;
+        });
+    };
+
     const calculateBalance = (start, end, events, initial) => {
         let balance = initial;
-        return filterBills(start, end, events).map((event) => {
+        return filterBills2(start, end, events).map((event) => {
             if (event.class === "Credit") {
                 balance += event.amount;
             } else {
@@ -34,14 +40,15 @@ export function Balance(startdate, enddate, events, currentBalance = 100) {
             }
             return {
                 balance: Number(balance).toFixed(2),
-                date: event.date.setHours(0, 0, 0, 0),
+                // date: event.date.set("second", 0),
+                date: event.date,
                 event: event,
             };
         });
     };
 
     let sortedBills = sortBills();
-    let filteredBills = filterBills(startdate, enddate, sortedBills);
+
     let calculatedBalance = calculateBalance(
         startdate,
         enddate,

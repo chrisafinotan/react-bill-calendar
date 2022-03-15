@@ -16,7 +16,8 @@ const CustomTooltip = styled(({ className, ...props }) => (
 
 const Day = ({ day }) => {
     const getCurrentDayClass = (day) => {
-        return day.setHours(0, 0, 0, 0).toString() === new Date().setHours(0, 0, 0, 0).toString() && 'currentDay'
+        // return day.setHours(0, 0, 0, 0).toString() === new Date().setHours(0, 0, 0, 0).toString() && 'currentDay'
+        return day.set('seconds', 0).toString() === new Date().setHours(0, 0, 0, 0).toString() && 'currentDay'
     }
 
     const getWeekendClass = (day) => {
@@ -25,7 +26,8 @@ const Day = ({ day }) => {
 
     const getEvents = () => {
         if (day[1]) {
-            return day[1].map(el => {
+            return day[1].map((el, index) => {
+                // console.log("day", el)
                 let tooltip = (
                     <div className='day__events__entry'>
                         <div className='day__events__amount' style={el.event.class === 'Debit' ? { color: 'var(--s__red__color)' } : { color: 'var(--s__green__color)' }}>
@@ -38,7 +40,7 @@ const Day = ({ day }) => {
                 )
 
                 return (
-                    <CustomTooltip title={tooltip} arrow key={`day_event_${el.event.name}`}>
+                    <CustomTooltip title={tooltip} arrow key={`day_event_${el.event.name}_${index}`}>
                         <div className='day__events' style={el.event.class === 'Debit' ? { backgroundColor: 'var(--s__red__color)' } : { backgroundColor: 'var(--s__green__color)' }}
                         >
                             <div className='day__events__name'>
@@ -66,7 +68,7 @@ const Day = ({ day }) => {
         <div className={`main__calendar__day ${getWeekendClass(day[0])} `}>
             <div className={`main__calendar__day__header ${getCurrentDayClass(day[0])}`}>
                 <div className={`${getCurrentDayClass(day[0])}`}>
-                    {day[0].getDate() === 1 && dayjs(day[0]).format('MMM ')}{day[0].getDate()}
+                    {day[0].date() === 1 && dayjs(day[0]).format('MMM ')}{day[0].date()}
                 </div>
                 {getTotal()}
             </div>
