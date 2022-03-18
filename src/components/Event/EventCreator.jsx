@@ -289,7 +289,7 @@ const EventCreator = ({ eventsArr, setEvents }) => {
                                     <CustomTooltip title={tooltip} arrow key={`day_event_${el.name}_debit`}>
                                         <div className='event__creator__object'>
                                             <div>
-                                                <div className='event__creator__event__name' style={el.event_class === 'Debit' ? { color: 'var(--p__red__color)' } : { color: 'var(--p__green__color)' }}>
+                                                <div className='event__creator__event__name' style={{ color: 'var(--p__red__color)' }}>
                                                     {el.name}
                                                 </div>
                                                 <div className='event__creator__event__desc'>
@@ -328,7 +328,46 @@ const EventCreator = ({ eventsArr, setEvents }) => {
                                     <CustomTooltip title={tooltip} arrow key={`day_event_${el.name}_credit`}>
                                         <div className='event__creator__object'>
                                             <div>
-                                                <div className='event__creator__event__name' style={el.event_class === 'Debit' ? { color: 'var(--p__red__color)' } : { color: 'var(--p__green__color)' }}>
+                                                <div className='event__creator__event__name' style={{ color: 'var(--p__green__color)' }}>
+                                                    {el.name}
+                                                </div>
+                                                <div className='event__creator__event__desc'>
+                                                    {GetEventString(el)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </CustomTooltip>
+                                )
+                            })}
+                        </AccordionDetails>
+                    </div>
+                </Accordion>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="crebit__events__content"
+                        id="crebit__events__header"
+                    >
+                        Savings
+                    </AccordionSummary>
+                    <div className='event__creator__list__credits'>
+                        <AccordionDetails sx={{ maxHeight: '20em', display: 'block', padding: 0 }}>
+                            {eventsList.filter(el => el.event_class === 'Saving').map(el => {
+                                let tooltip = (
+                                    <div>
+                                        <div onClick={() => EditEvent(el)} style={{ borderRadius: '100%' }}>
+                                            <EditIcon sx={{ color: 'var(--s__font__color)' }} />
+                                        </div>
+                                        <div onClick={() => DeleteEvent(el)} style={{ borderRadius: '100%' }}>
+                                            <DeleteForeverIcon sx={{ color: 'var(--p__red__color)' }} />
+                                        </div>
+                                    </div>
+                                )
+                                return (
+                                    <CustomTooltip title={tooltip} arrow key={`day_event_${el.name}_credit`}>
+                                        <div className='event__creator__object'>
+                                            <div>
+                                                <div className='event__creator__event__name' style={{ color: 'var(--p__orange__color)' }}>
                                                     {el.name}
                                                 </div>
                                                 <div className='event__creator__event__desc'>

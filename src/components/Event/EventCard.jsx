@@ -102,7 +102,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                                         borderRadius: "2rem",
                                     },
                                     "& .Mui-selected": {
-                                        backgroundColor: "var(--p__green__color)",
+                                        backgroundColor: "#0A9A33",
                                         color: "var(--w__font__color)",
                                     }
                                 }}
@@ -163,7 +163,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                                         borderRadius: "2rem",
                                     },
                                     "& .Mui-selected": {
-                                        backgroundColor: "var(--p__green__color)",
+                                        backgroundColor: "#0A9A33",
                                         color: "var(--w__font__color)",
                                     }
                                 }}
@@ -248,6 +248,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 >
                     <MenuItem value={'Credit'}>Credit</MenuItem>
                     <MenuItem value={'Debit'}>Debit</MenuItem>
+                    <MenuItem value={'Saving'}>Saving</MenuItem>
                 </Select>
             </div>
             {/* AMOUNT */}
@@ -321,6 +322,7 @@ const EventCard = ({ showCard, addNewRepeat, addNewSingle, input }) => {
                 >
                     <MenuItem value={'Credit'}>Credit</MenuItem>
                     <MenuItem value={'Debit'}>Debit</MenuItem>
+                    <MenuItem value={'Saving'}>Saving</MenuItem>
                 </Select>
             </div>
             {/* AMOUNT */}

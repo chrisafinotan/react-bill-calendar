@@ -41,7 +41,7 @@ const Day = ({ day }) => {
 
                 return (
                     <CustomTooltip title={tooltip} arrow key={`day_event_${el.event.name}_${index}`}>
-                        <div className='day__events' style={el.event.class === 'Debit' ? { backgroundColor: 'var(--s__red__color)' } : { backgroundColor: 'var(--s__green__color)' }}
+                        <div className='day__events' style={el.event.class === 'Debit' ? { backgroundColor: 'var(--s__red__color)' } : (el.event.class === 'Debit' ? { backgroundColor: 'var(--s__green__color)' } : { backgroundColor: 'var(--p__orange__color)' })}
                         >
                             <div className='day__events__name'>
                                 {`${el.event.name}`}
